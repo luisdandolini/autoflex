@@ -315,5 +315,5 @@ yarn lint       # Verificar erros de lint
 
 ## 🌐 Deploy
 
-- **Frontend:** https://autoflex.vercel.app
+- **Frontend:** https://autoflex-smoky.vercel.app/
 - **Backend API:** https://autoflex-api-5y2p.onrender.com
