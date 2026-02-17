@@ -1,12 +1,6 @@
+import type { RawMaterial } from "../../../types/RawMaterial";
 import Button from "../../atoms/Button";
 import Card from "../../molecules/Card";
-
-interface RawMaterial {
-  id: string;
-  code: string;
-  name: string;
-  quantity_stock: number;
-}
 
 interface RawMaterialTableProps {
   rawMaterials: RawMaterial[];
@@ -33,7 +27,7 @@ export default function RawMaterialTable({
     return (
       <Card>
         <div className="text-center py-8 text-gray-500">
-          No raw materials found. Create your first raw material!
+          No raw materials found. Create your first raw material!{" "}
         </div>
       </Card>
     );
@@ -41,6 +35,7 @@ export default function RawMaterialTable({
 
   return (
     <Card title="Raw Materials List">
+      {" "}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -69,7 +64,7 @@ export default function RawMaterialTable({
                   {rawMaterial.name}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                  {Number(rawMaterial.quantity_stock).toFixed(2)}
+                  {Number(rawMaterial.quantity_stock).toFixed(2)}{" "}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="flex justify-end gap-2">
@@ -77,6 +72,7 @@ export default function RawMaterialTable({
                       variant="secondary"
                       onClick={() => onEdit(rawMaterial)}
                     >
+                      {" "}
                       Edit
                     </Button>
                     <Button
