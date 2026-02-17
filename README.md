@@ -1,73 +1,314 @@
-# React + TypeScript + Vite
+# Autoflex - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web para o sistema de controle de estoque e sugestão de produção industrial. Desenvolvido com React, TypeScript, Redux Toolkit e Tailwind CSS.
 
-Currently, two official plugins are available:
+## 📋 Requisitos Funcionais Atendidos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **RF005** ✅ - Interface para CRUD de produtos
+- **RF006** ✅ - Interface para CRUD de matérias-primas
+- **RF007** ✅ - Interface para associar matérias-primas aos produtos
+- **RF008** ✅ - Interface para visualizar sugestões de produção
 
-## React Compiler
+## 🚀 Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** v19
+- **TypeScript** v5.7
+- **Redux Toolkit** v2.5 - Gerenciamento de estado global
+- **React Router DOM** v7 - Navegação entre páginas
+- **Tailwind CSS** v4 - Estilização
+- **Axios** - Requisições HTTP
+- **React Hot Toast** - Notificações
+- **Vite** v6 - Build tool
 
-## Expanding the ESLint configuration
+## 🏗️ Arquitetura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+O projeto utiliza **Atomic Design** para organização dos componentes, combinado com **Redux Toolkit** para gerenciamento de estado global.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Atomic Design:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+components/
+├── atoms/          # Componentes básicos e indivisíveis
+│   ├── Button.tsx
+│   ├── Input.tsx
+│   └── Label.tsx
+│
+├── molecules/      # Combinação de átomos
+│   ├── FormField.tsx
+│   └── Card.tsx
+│
+└── organisms/      # Seções complexas da interface
+    ├── Navbar.tsx
+    ├── ProductForm.tsx
+    ├── ProductFormModal.tsx
+    ├── ProductTable.tsx
+    ├── RawMaterialForm.tsx
+    ├── RawMaterialFormModal.tsx
+    └── RawMaterialTable.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Camadas da aplicação:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```
+┌──────────────────────────────────────────┐
+│ PAGES (Páginas)                          │
+│ Conectam Redux com Templates/Organisms   │
+└──────────────────┬───────────────────────┘
+                   ↓
+┌──────────────────────────────────────────┐
+│ TEMPLATES (Templates)                    │
+│ Estrutura visual das páginas             │
+└──────────────────┬───────────────────────┘
+                   ↓
+┌──────────────────────────────────────────┐
+│ ORGANISMS (Organismos)                   │
+│ Componentes complexos com estado         │
+└──────────────────┬───────────────────────┘
+                   ↓
+┌──────────────────────────────────────────┐
+│ MOLECULES + ATOMS                        │
+│ Componentes reutilizáveis básicos        │
+└──────────────────────────────────────────┘
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Redux Store:
+
+```
+store/
+├── products/
+│   └── productSlice.ts     # Estado + actions + thunks de produtos
+└── rawMaterials/
+    └── rawMaterialSlice.ts # Estado + actions + thunks de matérias-primas
+```
+
+## 📦 Instalação
+
+### Pré-requisitos:
+
+- Node.js v22 ou superior
+- Yarn v1.22+
+- Backend rodando em `http://localhost:3000`
+
+### Passo a passo:
+
+```bash
+# 1. Clonar o repositório
+git clone <[repository-url](https://github.com/luisdandolini/autoflex.git)>
+cd autoflex
+
+# 2. Instalar dependências
+yarn install
+
+# 3. Configurar variáveis de ambiente
+cp .env.example .env
+
+# 4. Rodar em desenvolvimento
+yarn dev
+```
+
+O frontend estará disponível em: `http://localhost:5173`
+
+## ⚙️ Variáveis de Ambiente
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+## 📁 Estrutura de Pastas
+
+```
+autoflex-frontend/
+├── public/                   # Arquivos estáticos
+├── src/
+│   ├── components/
+│   │   ├── atoms/            # Button, Input, Label
+│   │   ├── molecules/        # FormField, Card
+│   │   └── organisms/        # Forms, Tables, Modals, Navbar
+│   │
+│   ├── pages/
+│   │   ├── Home/             # Dashboard inicial
+│   │   ├── Products/         # CRUD de produtos (via template)
+│   │   ├── RawMaterials/     # CRUD de matérias-primas (via template)
+│   │   ├── Associations/     # Associar matérias-primas aos produtos
+│   │   └── Production/       # Sugestões de produção
+│   │
+│   ├── store/
+│   │   ├── products/         # Redux slice de produtos
+│   │   └── rawMaterials/     # Redux slice de matérias-primas
+│   │
+│   ├── services/
+│   │   └── api.ts            # Axios configurado
+│   │
+│   ├── types/
+│   │   ├── Product.ts        # Interface Product
+│   │   └── RawMaterial.ts    # Interface RawMaterial
+│   │
+│   ├── routes/
+│   │   └── index.tsx         # Definição de rotas
+│   │
+│   ├── App.tsx               # Componente raiz + Toaster
+│   ├── main.tsx              # Entry point
+│   └── index.css             # Tailwind CSS imports
+│
+├── .env                      # Variáveis de ambiente (não commitado)
+├── .env.example              # Template de variáveis
+├── .gitignore
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## 🖥️ Páginas
+
+### Home (`/`)
+
+- Dashboard com visão geral do sistema
+- Atalhos rápidos para todas as funcionalidades
+
+### Products (`/products`)
+
+- Listagem de todos os produtos em tabela
+- Criar novo produto (modal)
+- Editar produto existente (modal)
+- Deletar produto (confirmação)
+- Feedback visual com toasts
+
+### Raw Materials (`/raw-materials`)
+
+- Listagem de todas as matérias-primas em tabela
+- Criar nova matéria-prima (modal)
+- Editar matéria-prima existente (modal)
+- Deletar matéria-prima (confirmação)
+- Feedback visual com toasts
+
+### Associations (`/associations`)
+
+- Selecionar produto por dropdown
+- Visualizar matérias-primas associadas
+- Adicionar nova associação (select + quantidade)
+- Deletar associação existente
+- Filtra automaticamente matérias-primas já associadas
+
+### Production (`/production`)
+
+- Calcular sugestões de produção baseadas no estoque
+- Visualizar produtos que podem ser produzidos
+- Ver quantidade possível de cada produto
+- Ver valor unitário e total de cada produto
+- Barra de progresso com % do valor total
+- Botão para recalcular
+- Priorização por maior valor
+
+## 🎨 Design System
+
+### Componentes Atômicos:
+
+**Button:**
+
+```tsx
+<Button variant="primary">Save</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="danger">Delete</Button>
+<Button disabled={loading}>Loading...</Button>
+<Button fullWidth>Full Width</Button>
+```
+
+**Input:**
+
+```tsx
+<Input
+  value={value}
+  onChange={(val) => setValue(val)}
+  type="number"
+  placeholder="Enter value"
+  error="Field is required"
+/>
+```
+
+**FormField (Label + Input):**
+
+```tsx
+<FormField
+  label="Product Name"
+  value={name}
+  onChange={setName}
+  required
+  error={errors.name}
+/>
+```
+
+**Card:**
+
+```tsx
+<Card title="Products List">{/* content */}</Card>
+```
+
+## 🔄 Fluxo Redux
+
+```
+User Action
+    ↓
+Dispatch AsyncThunk
+    ↓
+API Request (Axios)
+    ↓
+pending → loading: true
+    ↓
+fulfilled → update state
+rejected → error state  + toast
+    ↓
+Component re-renders
+```
+
+### Exemplo de uso:
+
+```tsx
+// Dispatch action
+const dispatch = useDispatch<AppDispatch>();
+dispatch(fetchProducts());
+dispatch(createProduct({ code, name, value }));
+dispatch(updateProduct({ id, code, name, value }));
+dispatch(deleteProduct(id));
+
+// Selecionar estado
+const { data, loading, error } = useSelector(
+  (state: RootState) => state.products,
+);
+```
+
+## 🚀 Scripts
+
+```bash
+yarn dev        # Rodar em desenvolvimento
+yarn build      # Build para produção
+yarn preview    # Preview do build
+yarn lint       # Verificar erros de lint
+```
+
+## 🧪 Testando a Interface
+
+### Fluxo completo:
+
+```
+1. Acesse /products
+   → Criar produto "Gaming Chair" (P001, $1500)
+   → Criar produto "Office Desk" (P002, $800)
+
+2. Acesse /raw-materials
+   → Criar matéria-prima "Steel" (R001, stock: 100)
+   → Criar matéria-prima "Wood" (R002, stock: 50)
+
+3. Acesse /associations
+   → Selecionar "Gaming Chair"
+   → Adicionar "Steel" (quantidade: 5)
+   → Adicionar "Wood" (quantidade: 10)
+   → Selecionar "Office Desk"
+   → Adicionar "Steel" (quantidade: 8)
+
+4. Acesse /production
+   → Ver sugestões calculadas automaticamente
+   → Gaming Chair: 5 unidades → $7.500
+   → Office Desk: 6 unidades → $4.800
+   → Total: $12.300
 ```
