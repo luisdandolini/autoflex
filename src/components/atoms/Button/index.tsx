@@ -16,7 +16,7 @@ export default function Button({
   fullWidth = false,
 }: ButtonProps) {
   const baseClasses =
-    "px-4 py-2 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
+    "cursor-pointer px-4 py-2 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantClasses = {
     primary: "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
