@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { DefaultLayout } from "../components/templates/DefaultLayout";
 import Home from "../pages/Home";
 import ProductsTemplate from "../components/templates/Product";
+import RawMaterialsTemplate from "../components/templates/RawMaterial";
 
 export const AppRoutes = () => {
   return (
@@ -9,6 +10,7 @@ export const AppRoutes = () => {
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductsTemplate />} />
+        <Route path="/raw-materials" element={<RawMaterialsTemplate />} />
       </Route>
     </Routes>
   );
